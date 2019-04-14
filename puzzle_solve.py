@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 from find_waldo import find_waldo
+from find_pieces import find_pieces
 from auxiliary import *
 
 def parse_args():
@@ -26,6 +27,18 @@ def main(args):
             print("Invalid scattered image path: " + args.scattered)
 
         print(find_waldo(image, kernel))
+        return
+
+    if args.method == "test_blob":
+        try:
+            scattered_image = norm(np_from_img(args.scattered), 255)
+        except FileNotFoundError:
+            print("Invalid finished image path: " + args.scattered)
+        pieces = find_pieces(scattered_image)
+        # for p in range(0, len(pieces)):
+        #     plt.imshow(pieces[p], cmap="gist_gray")
+        #     plt.savefig("piece" + str(p) + ".jpeg")
+
 
 if __name__ == "__main__":
     main(parse_args())
