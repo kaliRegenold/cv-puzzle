@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from piece import Piece
 
 def find_pieces(scattered_image, threshold = (255/2)):
     params = cv2.SimpleBlobDetector_Params()
@@ -17,6 +18,6 @@ def find_pieces(scattered_image, threshold = (255/2)):
         piece = np.ones((radius*2, radius*2))
         indices = scattered_image[y-radius:y+radius, x-radius:x+radius] < threshold
         piece[indices] = 0
-        pieces.append(piece)
+        pieces.append(Piece(piece, x, y))
 
     return pieces
