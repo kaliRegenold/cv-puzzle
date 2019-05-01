@@ -7,6 +7,7 @@ from PIL import Image
 from find_waldo import find_waldo
 from find_pieces import find_pieces
 from auxiliary import *
+from display import *
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Solve puzzles with computer vision.")
@@ -44,8 +45,9 @@ def main(args):
             kernel = norm(np_from_img(args.scattered),2) - 1
         except FileNotFoundError:
             print("Invalid scattered image path: " + args.scattered)
-
-        print(find_waldo(image, kernel))
+        val,idx = find_waldo(image, kernel)
+        print(val,idx)
+        display_waldo(image,kernel,idx)
         return
 
     if args.method == "test_blob":

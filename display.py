@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.image as mpimg
 from piece import Piece
+from matplotlib.patches import Rectangle
 
-
-def display(pieces, scattered_image, solved_image):
+def display_final(pieces, scattered_image, solved_image):
 	scattered_x = np.array([piece.img_x for piece in pieces])
 	scattered_y = np.array([piece.img_y for piece in pieces])
 	solved_x = np.array([piece.solved_x for piece in pieces])
@@ -23,6 +23,14 @@ def display(pieces, scattered_image, solved_image):
 		plt.plot((scattered_x[i],solved_x[i]),(scattered_y[i],solved_y[i]),'-r')
 	
 	plt.show()
+
+def display_waldo(image, kernel, kernel_idx):
+    fig,ax = plt.subplots(1)
+    ax.imshow(image)
+    ax.add_patch(Rectangle((kernel_idx[1],kernel_idx[0]),kernel.shape[1],kernel.shape[0],linewidth=2,edgecolor='r',facecolor='none'))
+    plt.figure()
+    plt.imshow(kernel)
+    plt.show()
 
 
 if __name__ == "__main__":
@@ -47,5 +55,5 @@ if __name__ == "__main__":
 	for i in range(0,num_points-1):
 		pieces.append(Piece(3,x_left[i],y_left[i],x_right[i],y_right[i]))
 
-	display(pieces,img1,img2)
+	display_final(pieces,img1,img2)
 
